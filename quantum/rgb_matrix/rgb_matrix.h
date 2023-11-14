@@ -257,6 +257,8 @@ static inline bool rgb_matrix_check_finished_leds(uint8_t led_idx) {
 #endif
 }
 
+extern RGB g_openrgb_direct_mode_colors[DRIVER_LED_TOTAL];
+
 extern const rgb_matrix_driver_t rgb_matrix_driver;
 
 extern rgb_config_t rgb_matrix_config;
