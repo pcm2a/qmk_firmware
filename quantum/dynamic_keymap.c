@@ -30,6 +30,10 @@
 #    define DYNAMIC_KEYMAP_EEPROM_START (EECONFIG_SIZE)
 #endif
 
+#ifdef VIAL_ENABLE
+#    include "vial.h"
+#endif
+
 #ifdef ENCODER_ENABLE
 #    include "encoder.h"
 #else
