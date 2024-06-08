@@ -25,7 +25,7 @@ function figure_it_out() {
       compile "gmmk/gmmk2/p96/ansi" "pcm2a"
       break;;
     "2")
-      compile "keychron/c3_pro/ansi/red" "pcmn2a"
+      compile "keychron/c3_pro/ansi/red" "pcm2a"
       break;;
     "3")
       compile "converter/usb_usb/hasu" "pcm2a"
