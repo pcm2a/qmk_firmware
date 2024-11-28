@@ -32,6 +32,12 @@ function flash_spider() {
   mv *.hex build/  
 }
 
+function compile_sofle() {
+  qmk compile -kb sofle/rev1 -km pcm2a -e CONVERT_TO=promicro_rp2040
+  mkdir build
+  mv *.uf2 build/
+}
+
 function figure_it_out() {
   case $1 in
     "1")
@@ -55,6 +61,9 @@ function figure_it_out() {
     "7")
       flash_spider
       break;;
+    "8")
+      compile_sofle
+      break;;
   *)
   echo "Ooops";;
   esac
@@ -65,7 +74,7 @@ then
   figure_it_out $1
 else
   PS3="Choose: "
-  select kb in Gmmk C3_Pro Hasu Holly K8 Spiderisland_build Spiderisland_flash
+  select kb in Gmmk C3_Pro Hasu Holly K8 Spiderisland_build Spiderisland_flash Sofle
   do
     case $kb in
       "Gmmk")
@@ -88,6 +97,9 @@ else
         break;;
       "Spiderisland_flash")
         figure_it_out "7"
+        break;;
+      "Sofle")
+        figure_it_out "8"
         break;;
       "Quit")
          echo "We're done"
