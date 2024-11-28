@@ -230,6 +230,29 @@ static keyrecord_t *macro_pointer = NULL;
 static uint8_t macro_id = 0;
 
 /**
+ * If a dynamic macro is currently being recorded in the direction
+ */
+bool dynamic_macro_is_recording(int8_t direction) {
+    switch (direction > 0 ? 1 : 2) {
+        case 1:
+            return (macro_id == 1);
+        case 2:
+            return (macro_id == 2);
+    }
+    return false;
+}
+
+bool dynamic_macro_is_recorded(int8_t direction) {
+    switch (direction > 0 ? 1 : 2) {
+        case 1:
+            return (macro_end > macro_buffer);
+        case 2:
+            return (r_macro_end < (macro_buffer + (DYNAMIC_MACRO_SIZE - 1)));
+    }
+    return false;
+}
+
+/**
  * If a dynamic macro is currently being recorded, stop recording.
  */
 void dynamic_macro_stop_recording(void) {
