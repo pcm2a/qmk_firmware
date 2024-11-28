@@ -52,8 +52,9 @@ enum layers{
   WIN_BASE,
   WIN_FN,
   GAME,
-  NUMPAD_NUMS,
-  NUMPAD_FUNCS
+  NP_NUM,
+  NP_FUN,
+  NP_DEL,
 };
 
 typedef union {
@@ -100,19 +101,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Keymap _BL: Base Layer (Default Layer) */
     [MAC_BASE] = LAYOUT(
-        KC_ESC,   KC_BRID,  KC_BRIU,  KC_MCTL,  KC_LPAD,  COL_KEYS, COL_MODS,  _______,  _______,  KC_MUTE,    KC_VOLD, KC_VOLU,  RGB_TOG, RGB_MODX,   KC_DEL,  KC_INS,  KC_PGUP,  KC_PGDN,
-        KC_GRV,   KC_1,     KC_2,     KC_3,     KC_4,         KC_5,     KC_6,     KC_7,     KC_8,     KC_9,       KC_0, KC_MINS,   KC_EQL,  KC_BSPC,     NUMX, KC_PSLS,  KC_PAST,  KC_PMNS,
-        KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,         KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,       KC_P, KC_LBRC,  KC_RBRC,  KC_BSLS,    KC_P7,   KC_P8,    KC_P9,  KC_PPLS,
-        KC_CAPS,  KC_A,     KC_S,     KC_D,     KC_F,         KC_G,     KC_H,     KC_J,     KC_K,     KC_L,    KC_SCLN, KC_QUOT,             KC_ENT,    KC_P4,   KC_P5,    KC_P6,
-        KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,         KC_B,     KC_N,     KC_M,  KC_COMM,   KC_DOT,    KC_SLSH, KC_RSFT,              KC_UP,  DM_PLY1,  DM_PLY2,   KC_P3,  KC_PENT,
-        KC_LCTL,  KC_LGUI,  KC_LALT,                        KC_SPC,                                KC_RALT, MO(MAC_FN), KC_RCTL,  KC_LEFT,  KC_DOWN,  KC_RGHT,   KC_P0,  KC_PDOT),
+        KC_ESC,   KC_BRID,  KC_BRIU,  KC_MCTL,  KC_LPAD,  COL_KEYS, COL_MODS,  _______,  _______,  KC_MUTE,    KC_VOLD, KC_VOLU,  RGB_TOG, RGB_MODX,   KC_DEL,   KC_INS,  KC_PGUP,  KC_PGDN,
+        KC_GRV,   KC_1,     KC_2,     KC_3,     KC_4,         KC_5,     KC_6,     KC_7,     KC_8,     KC_9,       KC_0, KC_MINS,   KC_EQL,  KC_BSPC,     NUMX,  KC_PSLS,  KC_PAST,  KC_PMNS,
+        KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,         KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,       KC_P, KC_LBRC,  KC_RBRC,  KC_BSLS,    KC_P7,    KC_P8,    KC_P9,  KC_PPLS,
+        KC_CAPS,  KC_A,     KC_S,     KC_D,     KC_F,         KC_G,     KC_H,     KC_J,     KC_K,     KC_L,    KC_SCLN, KC_QUOT,             KC_ENT,    KC_P4,    KC_P5,    KC_P6,
+        KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,         KC_B,     KC_N,     KC_M,  KC_COMM,   KC_DOT,    KC_SLSH, KC_RSFT,              KC_UP,  DM_PLY1,  DM_PLY2,    KC_P3,  KC_PENT,
+        KC_LCTL,  KC_LGUI,  KC_LALT,                        KC_SPC,                                KC_RALT, MO(MAC_FN), KC_RCTL,  KC_LEFT,  KC_DOWN,  KC_RGHT,    KC_P0,  TG(NP_DEL)),
 
     [MAC_FN] = LAYOUT(
         QK_BOOT,    KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,    KC_F12,   _______,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,   _______,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,   _______,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,             _______,  _______,  _______,
-        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,              RGB_VAIX,   DM_REC1,  DM_REC2, DM_RSTP,  _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,              RGB_VAIX,  DM_REC1,   DM_REC2,  _______,  _______,
         _______,  _______,   _______,                      _______,                               TG(GAME), _______,  TG(GAME), RGB_RMODX,  RGB_VADX, RGB_MODX,  _______,  _______),
 
     [WIN_BASE] = LAYOUT(
@@ -120,15 +121,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_GRV,   KC_1,     KC_2,     KC_3,     KC_4,         KC_5,     KC_6,     KC_7,     KC_8,     KC_9,       KC_0, KC_MINS,   KC_EQL,  KC_BSPC,     NUMX, KC_PSLS,  KC_PAST,  KC_PMNS,
         KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,         KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,       KC_P, KC_LBRC,  KC_RBRC,  KC_BSLS,    KC_P7,   KC_P8,    KC_P9,  KC_PPLS,
         KC_CAPS,  KC_A,     KC_S,     KC_D,     KC_F,         KC_G,     KC_H,     KC_J,     KC_K,     KC_L,    KC_SCLN, KC_QUOT,             KC_ENT,    KC_P4,   KC_P5,    KC_P6,
-        KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,         KC_B,     KC_N,     KC_M,  KC_COMM,   KC_DOT,    KC_SLSH, KC_RSFT,              KC_UP,  DM_PLY1,  DM_PLY2,   KC_P3,  KC_PENT,
-        KC_LCTL,  KC_LGUI,  KC_LALT,                        KC_SPC,                                KC_RALT, MO(MAC_FN), KC_RCTL,  KC_LEFT,  KC_DOWN,  KC_RGHT,   KC_P0,  KC_PDOT),
+        KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,         KC_B,     KC_N,     KC_M,  KC_COMM,   KC_DOT,    KC_SLSH, KC_RSFT,              KC_UP,  DM_PLY1, DM_PLY2,   KC_P3,  KC_PENT,
+        KC_LCTL,  KC_LGUI,  KC_LALT,                        KC_SPC,                                KC_RALT, MO(MAC_FN), KC_RCTL,  KC_LEFT,  KC_DOWN,  KC_RGHT,   KC_P0,  MO(NP_DEL)),
 
     [WIN_FN] = LAYOUT(
         QK_BOOT,    KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,    KC_F12,   _______,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,   _______,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,   _______,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,             _______,  _______,  _______,
-        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,              RGB_VAIX,  DM_REC1,  DM_REC2,  DM_RSTP,  _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,              RGB_VAIX,  DM_REC1,  DM_REC2,  _______,  _______,
         _______,  _______,   _______,                      _______,                                TG(GAME), _______,  TG(GAME), RGB_RMODX, RGB_VADX, RGB_MODX,  _______,  _______),
 
     [GAME] = LAYOUT(
@@ -139,7 +140,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_LCTL,  KC_LSFT,                KC_C,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,                      _______,                                _______,  _______,  KC_LCTL,     KC_Z,      KC_X,     KC_V,  _______,  _______),
 
-    [NUMPAD_NUMS] = LAYOUT(
+    [NP_DEL]  = LAYOUT(
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,   _______,  _______,  _______,  _______,  _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,   _______,  _______,  _______,  _______,  _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,   _______,  _______,  _______,  _______,  _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,             _______,  _______,  _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,             _______,  _______,  _______,  _______,  _______,
+        _______,  _______,  _______,                      _______,                                _______,  _______,  _______,  _______,   _______,  _______,  _______,  _______),
+
+    [NP_NUM] = LAYOUT(
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_SLSH,  KC_ASTR,  KC_MINS,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,     KC_7,     KC_8,     KC_9,  KC_PLUS,
@@ -147,7 +156,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,               KC_1,     KC_2,     KC_3,   KC_ENT,
         _______,  _______,  _______,                      _______,                                _______,  _______,  _______,  _______,  _______,  _______,     KC_0,   KC_DOT),
 
-    [NUMPAD_FUNCS] = LAYOUT(
+    [NP_FUN] = LAYOUT(
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_SLSH,  KC_ASTR,  KC_MINS,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_HOME,    KC_UP,  KC_PGUP,  KC_PLUS,
@@ -155,6 +164,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,             KC_END,  KC_DOWN,  KC_PGDN,   KC_ENT,
         _______,  _______,  _______,                      _______,                                _______,  _______,  _______,  _______,  _______,  _______,   KC_INS,   KC_DEL)
 };
+
+/*
+    [GAME] = LAYOUT(
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,   _______,  _______,  _______,  _______,  _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,   _______,  _______,  _______,  _______,  _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,   _______,  _______,  _______,  _______,  _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,             _______,  _______,  _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,             _______,  _______,  _______,  _______,  _______,
+        _______,  _______,  _______,                      _______,                                _______,  _______,  _______,  _______,   _______,  _______,  _______,  _______),
+*/
 
 
 void keyboard_post_init_user(void) {
@@ -240,22 +259,24 @@ void cycle_mods_color(void) {
 }
 
 void activate_num_keys(void) {
-    if (IS_LAYER_ON(NUMPAD_NUMS)) {
+    if (IS_LAYER_ON(NP_NUM)) {
         // Turn off numbers, turn on functions
-        layer_off(NUMPAD_NUMS);
-        layer_on(NUMPAD_FUNCS);
+        layer_off(NP_NUM);
+        layer_on(NP_FUN);
     }
-    else if (IS_LAYER_ON(NUMPAD_FUNCS)) {
+    else if (IS_LAYER_ON(NP_FUN)) {
         // Turn off functions, back to base layer
-        layer_off(NUMPAD_FUNCS);
+        layer_off(NP_FUN);
     } else {
         // On base layer, turn on numbers
-        layer_on(NUMPAD_NUMS);
+        layer_on(NP_NUM);
     }
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+
     if (!record->event.pressed) {
+
         switch (keycode) {
           case METEST:
                 do_the_thing();
@@ -314,18 +335,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-void dynamic_macro_record_start_user(int8_t direction) {
-
-}
-
-void dynamic_macro_play_user(int8_t direction) {
-
-}
-
-void dynamic_macro_record_end_user(int8_t direction) {
-
-}
-
 RGB hsv_to_rgb_keep_brightness(int h, int s, int v) {
     HSV hsv = { h, s, v };
     if (hsv.v > rgb_matrix_get_val()) {
@@ -376,16 +385,37 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             rgb_matrix_set_color(64, game.r, game.g, game.b);
         }
 
-        if (IS_LAYER_ON(NUMPAD_NUMS)) {
+        if (IS_LAYER_ON(NP_NUM)) {
             RGB numpad = hsv_to_rgb_keep_brightness(HSV_YELLOW);
             for (uint8_t i = 0; i < RGB_GROUP_PAD_NUMLOCK_SIZE; i++) {
                 rgb_matrix_set_color(RGB_GROUP_PAD_NUMLOCK[i], numpad.r, numpad.g, numpad.b);
             }
         }
-        else if (IS_LAYER_ON(NUMPAD_FUNCS)) {
+        else if (IS_LAYER_ON(NP_FUN)) {
             RGB numpad = hsv_to_rgb_keep_brightness(HSV_RED);
             for (uint8_t i = 0; i < RGB_GROUP_PAD_NUMLOCK_SIZE; i++) {
                 rgb_matrix_set_color(RGB_GROUP_PAD_NUMLOCK[i], numpad.r, numpad.g, numpad.b);
+            }
+        } else {
+            /*
+             * Macropad area
+             */
+            if (dynamic_macro_is_recording(1)) {
+                RGB color = hsv_to_rgb_keep_brightness(HSV_RED);
+                rgb_matrix_set_color(83, color.r, color.g, color.b);
+            }
+            else if (dynamic_macro_is_recorded(1)) {
+                RGB color = hsv_to_rgb_keep_brightness(HSV_YELLOW);
+                rgb_matrix_set_color(83, color.r, color.g, color.b);
+            }
+
+            if (dynamic_macro_is_recording(-1)) {
+                RGB color = hsv_to_rgb_keep_brightness(HSV_RED);
+                rgb_matrix_set_color(84, color.r, color.g, color.b);
+            }
+            else if (dynamic_macro_is_recorded(-1)) {
+                RGB color = hsv_to_rgb_keep_brightness(HSV_YELLOW);
+                rgb_matrix_set_color(84, color.r, color.g, color.b);
             }
         }
 
