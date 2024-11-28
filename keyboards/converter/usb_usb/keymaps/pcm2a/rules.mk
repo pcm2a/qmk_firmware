@@ -1,0 +1,4 @@
+OLED_ENABLE = yes
+DEFERRED_EXEC_ENABLE = yes
+EXTRAFLAGS += -flto
+
