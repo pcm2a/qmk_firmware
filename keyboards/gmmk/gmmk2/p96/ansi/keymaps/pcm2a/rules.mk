@@ -1,0 +1,11 @@
+OPENRGB_ENABLE = yes
+MOUSEKEY_ENABLE = yes
+OS_DETECTION_ENABLE = yes
+VIA_ENABLE = no
+
+# For smaller firmware size
+LTO_ENABLE = yes
+QMK_SETTINGS = no
+TAP_DANCE_ENABLE = no
+COMBO_ENABLE = no
+KEY_OVERRIDE_ENABLE = no
