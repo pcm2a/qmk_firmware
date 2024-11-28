@@ -12,15 +12,21 @@ select kb in Gmmk C3_Pro K8 Hasu Holly
 do
     case $kb in
         "Gmmk")
-            qmk compile -kb gmmk/gmmk2/p96/ansi -km pcm2a;;
+            qmk compile -kb gmmk/gmmk2/p96/ansi -km pcm2a
+            break;;
         "C3_Pro")
-            qmk compile -kb keychron/c3_pro/ansi/red -km pcm2a;;
+            qmk compile -kb keychron/c3_pro/ansi/red -km pcm2a
+            break;;
         "Hasu")
-            qmk compile -kb converter/usb_usb/hasu -km pcm2a;;
+            qmk compile -kb converter/usb_usb/hasu -km pcm2a
+            break;;
         "Holly")
-            qmk compile -kb nullbitsco/holly -km pcm2a;;
+            qmk compile -kb nullbitsco/holly -km pcm2a
+            break;;
         "K8")
-            echo "Oops, no K8 support yet";;
+            cd /android/workspace/qmk/qmk_sonix
+            make keychron/k8/rgb/ansi:pcm2a
+            break;;
         "Quit")
            echo "We're done"
            break;;
