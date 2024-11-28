@@ -6,57 +6,69 @@
  #1161  qmk compile -kb nullbitsco/holly -km pcm2a
 #!/bin/bash
 
-if [ $1 != '' ]
+function compile() {
+  qmk compile -kb $1 -km $2
+  mkdir build
+  mv *.bin build/
+}
+
+function compile_sonix() {
+  mkdir build
+  cd ../qmk_sonix
+  make keychron/k8/rgb/ansi:pcm2a
+  mv *.bin ../qmk_firmware/build/ 
+}
+
+function figure_it_out() {
+  case $1 in
+    "1")
+      compile "gmmk/gmmk2/p96/ansi" "pcm2a"
+      break;;
+    "2")
+      compile "keychron/c3_pro/ansi/red" "pcmn2a"
+      break;;
+    "3")
+      compile "converter/usb_usb/hasu" "pcm2a"
+      break;;
+    "4")
+      compile "nullbitsco/holly" "pcm2a"
+      break;;
+    "5")
+      compile_sonix
+      break;;
+  *)
+  echo "Ooops";;
+  esac
+}
+
+if [ -n "$1" ]
 then
-    case $1 in
-        "1")
-            qmk compile -kb gmmk/gmmk2/p96/ansi -km pcm2a
-            break;;
-        "2")
-            qmk compile -kb keychron/c3_pro/ansi/red -km pcm2a
-            break;;
-        "3")
-            qmk compile -kb converter/usb_usb/hasu -km pcm2a
-            break;;
-        "4")
-            qmk compile -kb nullbitsco/holly -km pcm2a
-            break;;
-        "6")
-            cd /android/workspace/qmk/qmk_sonix
-            make keychron/k8/rgb/ansi:pcm2a
-            break;;
-        "7")
-           echo "We're done"
-           break;;
-        *)
-           echo "Ooops";;
-    esac
+  figure_it_out $1
 else
   PS3="Choose: "
-  select kb in Gmmk C3_Pro K8 Hasu Holly
+  select kb in Gmmk C3_Pro Hasu Holly K8
   do
     case $kb in
-        "Gmmk")
-            qmk compile -kb gmmk/gmmk2/p96/ansi -km pcm2a
-            break;;
-        "C3_Pro")
-            qmk compile -kb keychron/c3_pro/ansi/red -km pcm2a
-            break;;
-        "Hasu")
-            qmk compile -kb converter/usb_usb/hasu -km pcm2a
-            break;;
-        "Holly")
-            qmk compile -kb nullbitsco/holly -km pcm2a
-            break;;
-        "K8")
-            cd /android/workspace/qmk/qmk_sonix
-            make keychron/k8/rgb/ansi:pcm2a
-            break;;
-        "Quit")
-           echo "We're done"
-           break;;
-        *)
-           echo "Ooops";;
+      "Gmmk")
+        figure_it_out "1"
+        break;;
+      "C3_Pro")
+        figure_it_out "2"
+        break;;
+      "Hasu")
+        figure_it_out "3"
+        break;;
+      "Holly")
+        figure_it_out "4"
+        break;;
+      "K8")
+        figure_it_out "5"
+        break;;
+      "Quit")
+         echo "We're done"
+         break;;
+      *)
+      echo "Ooops";;
     esac
   done
 fi
