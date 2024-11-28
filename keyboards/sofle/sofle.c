@@ -90,6 +90,9 @@ void print_status_narrow(void) {
         case 3:
             oled_write_P(PSTR("Lower"), false);
             break;
+        case 4:
+            oled_write_P(PSTR("Game"), false);
+            break;
         default:
             oled_write_ln_P(PSTR("Undef"), false);
     }
