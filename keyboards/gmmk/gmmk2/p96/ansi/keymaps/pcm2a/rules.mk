@@ -2,6 +2,7 @@ OPENRGB_ENABLE = no
 MOUSEKEY_ENABLE = yes
 OS_DETECTION_ENABLE = yes
 VIA_ENABLE = no
+DYNAMIC_MACRO_ENABLE = yes
 
 # For smaller firmware size
 LTO_ENABLE = yes
