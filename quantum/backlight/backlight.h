@@ -49,12 +49,17 @@ typedef union backlight_config_t {
 STATIC_ASSERT(sizeof(backlight_config_t) == sizeof(uint8_t), "Backlight EECONFIG out of spec.");
 
 void    backlight_init(void);
+void    backlight_toggle_noeeprom(void);
 void    backlight_toggle(void);
+void    backlight_enable_noeeprom(void);
 void    backlight_enable(void);
+void    backlight_disable_noeeprom(void);
 void    backlight_disable(void);
 bool    is_backlight_enabled(void);
 void    backlight_step(void);
+void    backlight_increase_noeeprom(void);
 void    backlight_increase(void);
+void    backlight_decrease_noeeprom(void);
 void    backlight_decrease(void);
 void    backlight_level_noeeprom(uint8_t level);
 void    backlight_level(uint8_t level);

@@ -64,6 +64,18 @@ void backlight_init(void) {
     backlight_set(backlight_config.enable ? backlight_config.level : 0);
 }
 
+/** \brief Backlight increase without EEPROM update
+ *
+ *  FIXME: needs doc
+ */
+void backlight_increase_noeeprom(void) {
+    if (backlight_config.level < BACKLIGHT_LEVELS) {
+        backlight_config.level++;
+    }
+    backlight_config.enable = 1;
+    backlight_set(backlight_config.level);
+}
+
 /** \brief Backlight increase
  *
  * FIXME: needs doc
@@ -78,6 +90,20 @@ void backlight_increase(void) {
     backlight_set(backlight_config.level);
 }
 
+/** \brief Backlight decrease without EEPROM update
+ *
+ * FIXME: needs doc
+ */
+void backlight_decrease_noeeprom(void) {
+    if (backlight_config.level > 0) {
+        backlight_config.level--;
+        backlight_config.enable = !!backlight_config.level;
+        // eeconfig_update_backlight(backlight_config.raw);
+    }
+    dprintf("backlight decrease: %u\n", backlight_config.level);
+    backlight_set(backlight_config.level);
+}
+
 /** \brief Backlight decrease
  *
  * FIXME: needs doc
@@ -88,8 +114,19 @@ void backlight_decrease(void) {
         backlight_config.enable = !!backlight_config.level;
         eeconfig_update_backlight(&backlight_config);
     }
-    dprintf("backlight decrease: %u\n", backlight_config.level);
     backlight_set(backlight_config.level);
+}
+
+/** \brief Backlight toggle without EEPROM update
+ *
+ * FIXME: needs doc
+ */
+void backlight_toggle_noeeprom(void) {
+    bool enabled = backlight_config.enable;
+    if (enabled)
+        backlight_disable();
+    else
+        backlight_enable();
 }
 
 /** \brief Backlight toggle
@@ -105,6 +142,19 @@ void backlight_toggle(void) {
         backlight_enable();
 }
 
+/** \brief Enable backlight without EEPROM update
+ *
+ * FIXME: needs doc
+ */
+void backlight_enable_noeeprom(void) {
+    if (backlight_config.enable) return; // do nothing if backlight is already on
+
+    backlight_config.enable = true;
+    if (backlight_config.raw == 1) // enabled but level == 0
+        backlight_config.level = 1;
+    backlight_set(backlight_config.level);
+}
+
 /** \brief Enable backlight
  *
  * FIXME: needs doc
@@ -118,6 +168,17 @@ void backlight_enable(void) {
     eeconfig_update_backlight(&backlight_config);
     dprintf("backlight enable\n");
     backlight_set(backlight_config.level);
+}
+
+/** \brief Disable backlight without EEPROM update
+ *
+ * FIXME: needs doc
+ */
+void backlight_disable_noeeprom(void) {
+    if (!backlight_config.enable) return; // do nothing if backlight is already off
+
+    backlight_config.enable = false;
+    backlight_set(0);
 }
 
 /** \brief Disable backlight
