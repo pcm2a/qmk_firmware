@@ -1,4 +1,4 @@
-/* Copyright 2024 @ Keychron (https://www.keychron.com)
+/* Copyright 2023 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,16 +16,24 @@
 
 #pragma once
 
-/* Indication led */
-#define LED_MAC_OS_PIN A4
-#define LED_WIN_OS_PIN A5
-#define LED_OS_PIN_ON_STATE 1
+#ifdef LED_MATRIX_ENABLE
+/* RGB Matrix Driver Configuration */
+#    define DRIVER_COUNT 1
+#    define DRIVER_ADDR_1 0b1110100
 
-/* LED Matrix Driver Configuration */
-#define SNLED27351_I2C_ADDRESS_1 SNLED27351_I2C_ADDRESS_GND
+/* RGB Matrix Configuration */
+#    define LED_MATRIX_LED_COUNT (87 + 12)
 
 /* Use first 7 channels of LED driver */
-#define SNLED27351_PHASE_CHANNEL SNLED27351_SCAN_PHASE_7_CHANNEL
+#    define PHASE_CHANNEL MSKPHASE_7CHANNEL
 
 /* Set LED driver current */
-#define SNLED27351_CURRENT_TUNE { 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50 }
+#    define CKLED2001_CURRENT_TUNE \
+        { 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50 }
+
+/* turn off effects when suspended */
+#    define LED_DISABLE_WHEN_USB_SUSPENDED
+
+/* Enable Reactive Animation */
+#    define LED_MATRIX_KEYPRESSES
+#endif
