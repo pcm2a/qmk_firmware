@@ -5,6 +5,7 @@
  #1159  qmk compile -kb converter/usb_usb/hasu -km pcm2a
  #1161  qmk compile -kb nullbitsco/holly -km pcm2a
  # make spiderisland/split78:pcm2a:flash
+#  qmk flash -kb sofle/rev1 -km pcm2a -bl uf2-split-left
 #!/bin/bash
 
 function compile() {
