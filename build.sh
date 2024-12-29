@@ -6,6 +6,8 @@
  #1161  qmk compile -kb nullbitsco/holly -km pcm2a
  # make spiderisland/split78:pcm2a:flash
 #  qmk flash -kb sofle/rev1 -km pcm2a -bl uf2-split-left
+# qmk compile -kb keebio/quefrency/rev6 -km pcm2a
+# qmk flash -kb keebio/quefrency/rev6 -km pcm2a -bl dfu-util-split-left
 #!/bin/bash
 
 function compile() {
