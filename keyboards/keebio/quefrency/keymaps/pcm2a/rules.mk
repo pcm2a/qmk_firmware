@@ -2,4 +2,5 @@ VIA_ENABLE = no
 LTO_ENABLE = yes
 ENCODER_MAP_ENABLE = yes
 CONSOLE_ENABLE = no
+RGB_MATRIX_ENABLE = yes
 CFLAGS += -Wno-error=unused-function

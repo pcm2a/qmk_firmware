@@ -51,3 +51,13 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     }
     return false;
 }
+
+void keyboard_post_init_user(void) {
+    rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR);
+}
+
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    rgb_matrix_set_color(0, 85, 255, 255);
+    rgb_matrix_set_color(52, 85, 255, 255);
+    return false;
+}
