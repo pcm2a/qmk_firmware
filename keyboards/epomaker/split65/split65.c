@@ -257,7 +257,7 @@ bool lpwr_is_allow_timeout_hook(void) {
         return false;
     }
 
-    return false;  // TODO: figure out why sleep/wakeup doesn't working
+    return true;  // TODO: figure out why sleep/wakeup doesn't working
 }
 
 void wireless_post_task(void) {
@@ -386,47 +386,47 @@ bool process_record_wls(uint16_t keycode, keyrecord_t *record) {
 }
 #endif
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+// bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
-    if (test_white_light_flag && record->event.pressed) {
-        test_white_light_flag = false;
-        rgb_matrix_set_color_all(0x00, 0x00, 0x00);
-    }
+//     if (test_white_light_flag && record->event.pressed) {
+//         test_white_light_flag = false;
+//         rgb_matrix_set_color_all(0x00, 0x00, 0x00);
+//     }
 
-#ifdef WIRELESS_ENABLE
-    if (*md_getp_state() == MD_STATE_CONNECTED) {
-        hs_rgb_blink_set_timer(timer_read32());
-    }
-#endif
+// #ifdef WIRELESS_ENABLE
+//     if (*md_getp_state() == MD_STATE_CONNECTED) {
+//         hs_rgb_blink_set_timer(timer_read32());
+//     }
+// #endif
 
-    switch (keycode) {
-        case MO(_FL):
-        case MO(_MFL): {
-            if (!record->event.pressed && rgbrec_is_started()) {
-                if (no_record_fg == true) {
-                    no_record_fg = false;
-                    rgbrec_register_record(keycode, record);
-                }
-                no_record_fg = true;
-            }
-            break;
-        }
+//     switch (keycode) {
+//         case MO(_FL):
+//         case MO(_MFL): {
+//             if (!record->event.pressed && rgbrec_is_started()) {
+//                 if (no_record_fg == true) {
+//                     no_record_fg = false;
+//                     rgbrec_register_record(keycode, record);
+//                 }
+//                 no_record_fg = true;
+//             }
+//             break;
+//         }
 
-        case RGB_MOD:
-            break;
-        default: {
-            if (rgbrec_is_started()) {
-                if (!IS_QK_MOMENTARY(keycode) && record->event.pressed) {
-                    rgbrec_register_record(keycode, record);
+//         case RGB_MOD:
+//             break;
+//         default: {
+//             if (rgbrec_is_started()) {
+//                 if (!IS_QK_MOMENTARY(keycode) && record->event.pressed) {
+//                     rgbrec_register_record(keycode, record);
 
-                    return false;
-                }
-            }
-        } break;
-    }
+//                     return false;
+//                 }
+//             }
+//         } break;
+//     }
 
-    return true;
-}
+//     return true;
+// }
 
 void im_rgblight_increase(void) {
     HSV rgb;
@@ -1536,6 +1536,12 @@ void hs_reset_settings(void) {
     hs_rgb_blink_set_timer(timer_read32());
 #endif
     keyboard_post_init_kb();
+}
+
+void lpwr_presleep_hook(void) {
+    if (wireless_get_current_devs() != DEVS_USB) {
+        wireless_devs_change(wireless_get_current_devs(), wireless_get_current_devs(), true);  // Force reset to disconnect BT
+    }
 }
 
 void lpwr_wakeup_hook(void) {

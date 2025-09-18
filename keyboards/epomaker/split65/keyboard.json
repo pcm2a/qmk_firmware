@@ -105,15 +105,17 @@
             "typing_heatmap": true
         },
         "default": {
-            "animation": "cycle_left_right",
-            "speed": 135,
-            "val": 150
+            "animation": "jellybean_raindrops",
+            "speed": 100,
+            "hue": 240,
+            "sat": 255,
+            "val": 80
         },
         "driver": "ws2812",
         "layout": [
             {"matrix": [5, 5], "x": 65, "y": 64, "flags": 4},
             {"matrix": [5, 1], "x": 19, "y": 64, "flags": 4},
-            {"matrix": [3, 0], "x": 5, "y": 32, "flags": 4}, 
+            {"matrix": [3, 0], "x": 5, "y": 32, "flags": 4},
             {"matrix": [4, 0], "x": 9, "y": 48, "flags": 4},
             {"matrix": [5, 0], "x": 2, "y": 64, "flags": 4},
             {"matrix": [5, 2], "x": 36, "y": 64, "flags": 4},
